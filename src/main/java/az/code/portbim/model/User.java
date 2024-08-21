@@ -23,13 +23,13 @@ public class User implements UserDetails {
     private Integer id;
     private String firstName;
     private String lastName;
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of();
     }
 
     @Override
@@ -37,7 +37,6 @@ public class User implements UserDetails {
         // email in our case
         return email;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
