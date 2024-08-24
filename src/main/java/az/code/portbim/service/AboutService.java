@@ -3,7 +3,6 @@ import az.code.portbim.model.About;
 import az.code.portbim.repository.AboutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -20,7 +19,12 @@ public class AboutService {
         return aboutRepository.save(aboutDto);
     }
 
-    public Optional<About> getContent(Long id) {
-        return  aboutRepository.findById(id);
+//    public Optional<About> getAboutByLanguage(String language) {
+//        return  aboutRepository.findByLanguage(language);
+//    }
+
+
+    public Optional<About> getAboutById(Long id) {
+        return aboutRepository.findById(id);
     }
 }

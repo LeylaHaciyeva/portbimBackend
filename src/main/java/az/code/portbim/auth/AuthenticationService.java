@@ -86,6 +86,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -101,16 +102,23 @@ public class AuthenticationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public boolean authenticate(String username, String password) {
-        try {
-            Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
-            Authentication result = authenticationManager.authenticate(authentication);
-            return result.isAuthenticated();
-        } catch (AuthenticationException e) {
-            return false;
-        }
+//    public boolean authenticate(String username, String password) {
+//        try {
+//            Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
+//            Authentication result = authenticationManager.authenticate(authentication);
+//            return result.isAuthenticated();
+//        } catch (AuthenticationException e) {
+//            return false;
+//        }
+//    }
+public boolean authenticate(String username, String password) {
+    try {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return passwordEncoder.matches(password, userDetails.getPassword());
+    } catch (UsernameNotFoundException e) {
+        return false;
     }
-
+}
     // Optionally, you can add a method to get UserDetails if needed
     public UserDetails loadUserByUsername(String username) {
         return userDetailsService.loadUserByUsername(username);

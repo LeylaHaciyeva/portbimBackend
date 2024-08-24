@@ -44,25 +44,33 @@ package az.code.portbim.auth;//package az.code.portbim.auth;
 
 
 import az.code.portbim.auth.AuthenticationService;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping()
+@CrossOrigin
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
         boolean isAuthenticated = authenticationService.authenticate(username, password);
+
         if (isAuthenticated) {
-            return "Login successful!";
+//            logger.info("User {} authenticated successfully", username);
+            return ResponseEntity.ok("Login successful!");
         } else {
-            return "Invalid username or password!";
+//            logger.warn("Authentication failed for user: {}", password);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password!");
         }
     }
     @GetMapping("/admin")
     public String dashboard() {
         return "admin";
     }
+
 }
