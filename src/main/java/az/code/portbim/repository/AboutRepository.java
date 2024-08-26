@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface AboutRepository extends JpaRepository<About, Long> {
 //    Optional<About> findByLanguage(String language);
-    @NotNull
-    Optional<About> findById(@NotNull Long id);
+//    @NotNull
+//    Optional<About> findById(@NotNull Long id);
+
+    Optional<About> findByLanguage(String language);
 }

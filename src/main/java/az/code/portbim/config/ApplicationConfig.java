@@ -16,7 +16,8 @@
 //@Configuration
 //@RequiredArgsConstructor
 //public class ApplicationConfig {
-//    private final UserRepository repository;
+//    @Autowired
+//    UserRepository repository;
 //    @Bean
 //    public UserDetailsService userDetailsService() {
 //        return username -> repository.findByEmail(username)

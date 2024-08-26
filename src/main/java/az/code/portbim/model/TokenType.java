@@ -1,5 +1,5 @@
-package az.code.portbim.model;
-
-public enum TokenType {
-    BEARER
-}
+//package az.code.portbim.model;
+//
+//public enum TokenType {
+//    BEARER
+//}
