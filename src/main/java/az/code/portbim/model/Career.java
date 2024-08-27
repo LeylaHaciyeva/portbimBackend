@@ -2,7 +2,8 @@ package az.code.portbim.model;
 import java.util.Date;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "career")
 @Data
@@ -18,7 +19,19 @@ public class Career {
     private   String department;
     private   String type;
     private   String location;
+    private   String language;
     private   String responsibilities;
-    private   String requiments;
-    public   Date lastdate;
+    private   String skills;
+    @Temporal(TemporalType.DATE)
+    public   Date lastDate;
+    @Temporal(TemporalType.DATE)
+    @Column(updatable = false) // Ensure this field is not updated after creation
+    private Date postedDate;
+
+    @PrePersist
+    protected void onCreate() {
+        if (postedDate == null) {
+            postedDate = new Date(); // Set the current date
+        }
+    }
 }
