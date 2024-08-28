@@ -19,11 +19,11 @@ public class About {
     private String language;
     private byte[] mainImage;
     private   String header;
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String descHeader;
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String desc1;
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String desc2;
     private String clientHeader;
     @ElementCollection

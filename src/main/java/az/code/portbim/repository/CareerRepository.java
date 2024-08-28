@@ -16,4 +16,5 @@ public interface CareerRepository  extends JpaRepository<Career, Long> {
     @NotNull
     Optional<Career> findById(@NotNull Long id);
 
+
 }

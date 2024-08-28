@@ -44,8 +44,14 @@ public class CareerController {
         return ResponseEntity.ok("Files uploaded successfully!");
     }
     @GetMapping("/{language}")
-    public ResponseEntity<List<Career>> getAllVacancy(@PathVariable String language) {
-        Optional<List<Career>> careerOptional = careerService.getAllVacancy(language);
+    public ResponseEntity<List<Career>> getAllVacancyByLanguage(@PathVariable String language) {
+        Optional<List<Career>> careerOptional = careerService.getAllVacancyByLanguage(language);
+        return careerOptional.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }
+    @GetMapping
+    public ResponseEntity<List<Career>> getAllVacancy() {
+        Optional<List<Career>> careerOptional = careerService.getAllVacancy();
         return careerOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
@@ -54,5 +60,14 @@ public class CareerController {
         Optional<Career> careerOptional = careerService.getVacancyById(Long.valueOf(id));
         return careerOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteVacancyById(@PathVariable String id) {
+        boolean deleted = careerService.deleteVacancyById(Long.valueOf(id));
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
